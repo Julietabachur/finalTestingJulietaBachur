@@ -88,4 +88,23 @@ public class BasePage {
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         return this.findElement(locator).getText();
     }
+
+    /** Método para iniciar sesion.
+     * @param inputUsername El username a ingresar.
+     * @param locatorUsername El localizador del username.
+     *  @param inputPassword El password a ingresar.
+     *  @param locatorPassword El localizador del password.
+     *  @param locatorBtnLogIn El localizador del boton de login.
+     * @throws InterruptedException Si ocurre un error durante la espera.
+     */
+    protected void logIn(String inputUsername, By locatorUsername, String inputPassword, By locatorPassword, By locatorBtnLogIn) throws InterruptedException {
+        wait.until(ExpectedConditions.presenceOfElementLocated(locatorUsername));
+        wait.until(ExpectedConditions.presenceOfElementLocated(locatorPassword));
+        wait.until(ExpectedConditions.presenceOfElementLocated(locatorBtnLogIn));
+        this.findElement(locatorUsername).clear();
+        this.findElement(locatorUsername).sendKeys(inputUsername);
+        this.findElement(locatorPassword).clear();
+        this.findElement(locatorPassword).sendKeys(inputPassword);
+        this.findElement(locatorBtnLogIn).click();
+    }
 }

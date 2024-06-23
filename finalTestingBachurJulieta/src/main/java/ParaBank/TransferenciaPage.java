@@ -13,12 +13,23 @@ public class TransferenciaPage extends BasePage{
     private By cuentaDos = By.cssSelector("#fromAccountId option:nth-child(2)");
     private By btnTransferirOk = By.cssSelector("input[value='Transfer']");
     private By exito = By.cssSelector("div[id='showResult'] h1[class='title']");
+    private By inputUsuario = By.cssSelector("input[name='username']");
+    private By inputContraseña = By.cssSelector("input[name='password']");
+    private By btnIniciarSesion = By.cssSelector("input[value='Log In']");
+
 
     /**Constructor de la clase TransferenciaPage
      * @param driver la instancia de WebDriver utilizada para interactuar con la página web
      */
     public TransferenciaPage(WebDriver driver, WebDriverWait wait) {
         super(driver, null);
+    }
+
+    /** Completa form de "Iniciar sesion" .
+     * @throws InterruptedException si el hilo es interrumpido mientras espera
+     */
+    public void iniciarSesion(String username, String password) throws InterruptedException {
+        this.logIn(username, inputUsuario, password, inputContraseña, btnIniciarSesion);
     }
 
     /** Hace click en la opcion "Transferir".

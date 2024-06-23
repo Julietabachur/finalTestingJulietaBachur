@@ -14,12 +14,23 @@ public class ActividadPage extends BasePage{
     private By todoTipo = By.cssSelector("select[id='transactionType'] option[value='All']");
     private By tipo = By.id("transactionType");
     private By ir = By.cssSelector("input[value='Go']");
+    private By inputUsuario = By.cssSelector("input[name='username']");
+    private By inputContraseña = By.cssSelector("input[name='password']");
+    private By btnIniciarSesion = By.cssSelector("input[value='Log In']");
 
     /**Constructor de la clase ActividadPage
      * @param driver la instancia de WebDriver utilizada para interactuar con la página web
      */
     public ActividadPage(WebDriver driver, WebDriverWait wait) {
         super(driver, null);
+    }
+
+
+    /** Completa form de "Iniciar sesion" .
+     * @throws InterruptedException si el hilo es interrumpido mientras espera
+     */
+    public void iniciarSesion(String username, String password) throws InterruptedException {
+        this.logIn(username, inputUsuario, password, inputContraseña, btnIniciarSesion);
     }
 
     /** Hace click en la opcion "Resumen de cuentas".

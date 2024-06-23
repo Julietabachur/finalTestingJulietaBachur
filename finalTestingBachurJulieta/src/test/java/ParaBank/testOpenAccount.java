@@ -38,41 +38,57 @@ public class testOpenAccount {
     @Test
     @Tag("ABRIR_CAJA_AHORROS")
     @Tag("EXITOSO")
-    public void AbrirCajaAhorrosExitoso() throws InterruptedException {
-        ExtentTest test = extent.createTest("Apertura de caja de ahorros Exitosa");
-        test.log(Status.INFO, "Comienza el Test");
-        System.out.println("Comienza el test");
+    public void abrirCajaAhorrosExitoso() throws InterruptedException {
+        ExtentTest test = extent.createTest("Apertura de caja de ahorro exitosa");
+        test.log(Status.INFO, "Comienza el Test de Apertura de caja de ahorro");
+        System.out.println("Comienza el test de Apertura de caja de ahorro");
 
         try {
             OpenAccountPage openAccount = new OpenAccountPage(driver, wait);
-            openAccount.escribirUsuario("Juaniperez");
-            openAccount.escribirContraseña("12345678");
-            openAccount.clickIniciarSesion();
+            openAccount.iniciarSesion("julio1", "123");
             test.log(Status.PASS, "Presiono 'Abrir nueva cuenta'");
             System.out.println("Presiono 'Abrir nueva cuenta'");
             openAccount.clickAbrirCuenta();
             openAccount.clickTipoCuenta();
             openAccount.clickSavings();
             System.out.println("Presiono 'Savings'");
-            test.log(Status.PASS, "Elijo el tipo de cuenta abrir");
+            test.log(Status.PASS, "Elijo el tipo de cuenta a abrir");
             openAccount.clickAbrirCajaAhorro();
             test.log(Status.PASS, "Confirmo apertura de caja de ahorros");
             System.out.println("Confirmo apertura de caja de ahorros");
-            openAccount.cuentaCreadaExito().equals("Congratulations, your account is now open.");
+            Thread.sleep(6000);
+            Assertions.assertEquals("Congratulations, your account is now open.", openAccount.cuentaCreadaExito());
             test.log(Status.PASS, "Validación de apertura de  caja de ahorros Exitoso");
-            test.log(Status.INFO, "Finaliza el Test");
+            System.out.println("Validación de apertura de  caja de ahorros Exitoso");
+            test.log(Status.PASS, "Repito el test para tener 2 cajas de ahorro y poder realizar la transferencia");
+            System.out.println("Repito el test para tener 2 cajas de ahorro y poder realizar la transferencia");
+            test.log(Status.PASS, "Presiono 'Abrir nueva cuenta'");
+            System.out.println("Presiono 'Abrir nueva cuenta'");
+            openAccount.clickAbrirCuenta();
+            openAccount.clickTipoCuenta();
+            openAccount.clickSavings();
+            System.out.println("Presiono 'Savings'");
+            test.log(Status.PASS, "Elijo el tipo de cuenta a abrir");
+            openAccount.clickAbrirCajaAhorro();
+            test.log(Status.PASS, "Confirmo apertura de caja de ahorros 2");
+            System.out.println("Confirmo apertura de caja de ahorros 2");
+            test.log(Status.PASS, "Validación de apertura de  caja de ahorros 2 Exitoso");
+            System.out.println("Validación de apertura de  caja de ahorros 2 Exitoso");
+            System.out.println("Finaliza el Test de Apertura de cajas de ahorro");
+            test.log(Status.INFO, "Finaliza el Test de Apertura de cajas de ahorro");
         } catch(AssertionError e) {
             test.log(Status.FAIL, "Fallo en el test: " + e.getMessage());
+            System.out.println("Fallo en el test: " + e.getMessage());
             throw e;
         }
     }
     
     
-//    @AfterEach
-//    public void endTest() throws InterruptedException {
-//        OpenAccountPage openAccount = new OpenAccountPage(driver, wait);
-//        openAccount.close();
-//    }
+    @AfterEach
+    public void endTest() throws InterruptedException {
+        OpenAccountPage openAccount = new OpenAccountPage(driver, wait);
+        openAccount.close();
+    }
 
     @AfterAll
     public static void finish() {

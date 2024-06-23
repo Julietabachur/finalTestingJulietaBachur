@@ -21,27 +21,11 @@ public class OpenAccountPage extends BasePage{
         super(driver, null);
     }
 
-    /** Ingresa el usuario en el campo de usuario.
-     * @param name el usuario a ingresar en el campo
+     /** Completa form de "Iniciar sesion" .
      * @throws InterruptedException si el hilo es interrumpido mientras espera
      */
-    public void escribirUsuario(String name) throws InterruptedException {
-        this.sendText(name, inputUsuario);
-    }
-
-    /** Ingresa la contraseña en el campo de contraseña.
-     * @param name el usuario a ingresar en el campo
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
-    public void escribirContraseña(String name) throws InterruptedException {
-        this.sendText(name, inputContraseña);
-    }
-
-    /** Hace click en el botón "Iniciar sesion" .
-     * @throws InterruptedException si el hilo es interrumpido mientras espera
-     */
-    public void clickIniciarSesion() throws InterruptedException {
-        this.click(btnIniciarSesion);
+    public void iniciarSesion(String username, String password) throws InterruptedException {
+        this.logIn(username, inputUsuario, password, inputContraseña, btnIniciarSesion);
     }
 
     /** Hace click en el botón "Open new account" .
@@ -70,6 +54,7 @@ public class OpenAccountPage extends BasePage{
      */
     public void clickAbrirCajaAhorro() throws InterruptedException {
         this.click(abrirCuenta);
+        System.out.println("se hizo click en abrir cuenta");
     }
 
     /** Obtiene el texto del mensaje de éxito indicando la creación de la cuenta.

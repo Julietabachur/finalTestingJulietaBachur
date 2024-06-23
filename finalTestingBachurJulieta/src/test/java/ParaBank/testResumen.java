@@ -37,27 +37,39 @@ public class testResumen {
     @Test
     @Tag("VER_RESUMEN")
     @Tag("EXITOSO")
-    public void VerResumenExitoso() throws InterruptedException {
-        ExtentTest test = extent.createTest("Ver resumenes exitoso");
-        test.log(Status.INFO, "Comienza el Test");
-        test.log(Status.PASS, "Presiono 'Accounts Overview'");
-        ResumenPage resumenPage = new ResumenPage(driver, wait);
-//        resumenPage.escribirUsuario("Juaniperez");
-//        resumenPage.escribirContraseña("12345678");
-//        resumenPage.clickIniciarSesion();
-        resumenPage.clickResumen();
-        test.log(Status.PASS, "Elijo el tipo de cuenta abrir");
-        resumenPage.resumenExito().equals("*Balance includes deposits that may be subject to holds");
-        test.log(Status.PASS, "Validación de vista de balance Exitoso");
-        test.log(Status.INFO, "Finaliza el Test");
+    public void verResumenExitoso() throws InterruptedException {
+        ExtentTest test = extent.createTest("Ver resumen exitoso");
+        test.log(Status.INFO, "Comienza el Test de Ver resumen");
+        System.out.println("Comienza el Test de Ver resumen");
+
+
+        try{
+            ResumenPage resumenPage = new ResumenPage(driver, wait);
+            resumenPage.iniciarSesion("julio1", "123");
+            test.log(Status.PASS, "Presiono 'Accounts Overview'");
+            System.out.println("Presiono 'Accounts Overview'");
+            resumenPage.clickResumen();
+            test.log(Status.PASS, "Elijo el tipo de cuenta abrir");
+            System.out.println("Elijo el tipo de cuenta abrir");
+            Assertions.assertEquals("*Balance includes deposits that may be subject to holds", resumenPage.resumenExito());
+            test.log(Status.PASS, "Validación de vista de resumen Exitoso");
+            test.log(Status.INFO, "Finaliza el Test de Ver resumen");
+            System.out.println("Validación de vista de resumen Exitoso");
+            System.out.println("Finaliza el Test de Ver resumen");
+        } catch(AssertionError e) {
+            test.log(Status.FAIL, "Fallo en el test: " + e.getMessage());
+            System.out.println("Fallo en el test: " + e.getMessage());
+            throw e;
+        }
+
     }
 
 
-//    @AfterEach
-//    public void endTest() throws InterruptedException {
-//        ResumenPage resumenPage = new ResumenPage(driver, wait);
-//        resumenPage.close();
-//    }
+    @AfterEach
+    public void endTest() throws InterruptedException {
+        ResumenPage resumenPage = new ResumenPage(driver, wait);
+        resumenPage.close();
+    }
 
     @AfterAll
     public static void finish() {
